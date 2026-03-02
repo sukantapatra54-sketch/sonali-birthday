@@ -117,6 +117,10 @@ h1{
 <body>
 
 <h1>Blow the Candle Sweetheart 🎂</h1>
+
+<img src="./IMG_20260302_151050.jpg" 
+     style="width:300px; border-radius:20px; margin-top:20px; box-shadow:0 0 25px pink;">  
+  
 <div class="cake" id="cake"></div>
 <div class="message hidden" id="message">
 🎉 Happy 22nd Birthday Sweetheart Sonali 🎉 <br>
@@ -176,7 +180,9 @@ async function startMic(){
   const bufferLength = analyser.frequencyBinCount;
   dataArray = new Uint8Array(bufferLength);
 
-  detectBlow();
+  setTimeout(() => {
+    detectBlow();
+}, 1500);
 }
 
 function detectBlow(){
@@ -185,7 +191,7 @@ function detectBlow(){
 
   let volume = dataArray.reduce((a,b)=>a+b) / dataArray.length;
 
-  if(volume > 18){
+  if(volume > 20){
         blowCandle();
   }
 
