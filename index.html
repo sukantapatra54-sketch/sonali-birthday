@@ -185,9 +185,8 @@ function detectBlow(){
 
   let volume = dataArray.reduce((a,b)=>a+b) / dataArray.length;
 
-  if(volume > 20){
-      blowCandle();
-      return;
+  if(volume > 12){
+        blowCandle();
   }
 
   requestAnimationFrame(detectBlow);
@@ -195,6 +194,10 @@ function detectBlow(){
 
 function blowCandle(){
 
+    
+    if(window.blown) return;
+    window.blown = true;
+  
   document.querySelectorAll(".flame").forEach(f=>{
     f.style.display="none";
   });
