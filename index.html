@@ -157,53 +157,70 @@ setInterval(()=>{
 },500);
 
 // mic blow detect
-navigator.mediaDevices.getUserMedia({ audio: true })
-.then(function(stream) {
-    const audioContext = new AudioContext();
-    const microphone = audioContext.createMediaStreamSource(stream);
-    const analyser = audioContext.createAnalyser();
-    microphone.connect(analyser);
-    analyser.fftSize = 256;
-    const dataArray = new Uint8Array(analyser.frequencyBinCount);
+let audioContext;
+let analyser;
+let microphone;
+let dataArray;
 
-    function detectBlow(){
-        analyser.getByteFrequencyData(dataArray);
-        let volume = dataArray.reduce((a,b)=>a+b)/dataArray.length;
+async function startMic(){
 
-        if(volume > 35){
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
 
-    document.querySelectorAll(".flame").forEach(f=>{
-        f.style.display = "none";
-    });
+  audioContext = new (window.AudioContext || window.webkitAudioContext)();
+  microphone = audioContext.createMediaStreamSource(stream);
+  analyser = audioContext.createAnalyser();
 
-    document.getElementById("message").classList.remove("hidden");
+  microphone.connect(analyser);
+  analyser.fftSize = 256;
 
-// Fireworks
-for(let i=0;i<20;i++){
-  let fw = document.createElement("div");
-  fw.className="firework";
-  fw.style.left = Math.random()*100+"vw";
-  fw.style.top = Math.random()*60+"vh";
-  document.body.appendChild(fw);
-  setTimeout(()=>fw.remove(),1000);
+  const bufferLength = analyser.frequencyBinCount;
+  dataArray = new Uint8Array(bufferLength);
+
+  detectBlow();
 }
 
-// Balloons
-for(let i=0;i<10;i++){
-  let balloon=document.createElement("div");
-  balloon.className="balloon";
-  balloon.style.left=Math.random()*100+"vw";
-  balloon.style.background=`hsl(${Math.random()*360},70%,60%)`;
-  document.body.appendChild(balloon);
-  setTimeout(()=>balloon.remove(),6000);
+function detectBlow(){
+
+  analyser.getByteFrequencyData(dataArray);
+
+  let volume = dataArray.reduce((a,b)=>a+b) / dataArray.length;
+
+  if(volume > 20){
+      blowCandle();
+      return;
+  }
+
+  requestAnimationFrame(detectBlow);
 }
-          
-          }
-        }
-        requestAnimationFrame(detectBlow);
-    }
-    detectBlow();
-});
+
+function blowCandle(){
+
+  document.querySelectorAll(".flame").forEach(f=>{
+    f.style.display="none";
+  });
+
+  document.getElementById("message").classList.remove("hidden");
+
+  for(let i=0;i<20;i++){
+    let fw=document.createElement("div");
+    fw.className="firework";
+    fw.style.left=Math.random()*100+"vw";
+    fw.style.top=Math.random()*60+"vh";
+    document.body.appendChild(fw);
+    setTimeout(()=>fw.remove(),1000);
+  }
+
+  for(let i=0;i<10;i++){
+    let balloon=document.createElement("div");
+    balloon.className="balloon";
+    balloon.style.left=Math.random()*100+"vw";
+    balloon.style.background=`hsl(${Math.random()*360},70%,60%)`;
+    document.body.appendChild(balloon);
+    setTimeout(()=>balloon.remove(),6000);
+  }
+}
+
+document.body.addEventListener("click", startMic);
 </script>
 
 </body>
