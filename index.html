@@ -20,7 +20,7 @@ h1{
 
 .cake{
   position:relative;
-  margin:100px auto;
+  margin:280px auto;
   width:220px;
   height:160px;
   background:#ff4da6;
@@ -81,6 +81,36 @@ h1{
   from{transform:translateY(100vh);}
   to{transform:translateY(-10vh);}
 }
+
+/* Fireworks */
+.firework {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: yellow;
+  border-radius: 50%;
+  animation: explode 1s ease-out forwards;
+}
+
+@keyframes explode {
+  from { transform: scale(1); opacity:1; }
+  to { transform: scale(15); opacity:0; }
+}
+
+/* Balloons */
+.balloon {
+  position: absolute;
+  width: 40px;
+  height: 50px;
+  border-radius: 50%;
+  animation: rise 6s linear forwards;
+}
+
+@keyframes rise {
+  from { transform: translateY(100vh); }
+  to { transform: translateY(-120vh); }
+}
+
 </style>
 </head>
 
@@ -140,10 +170,35 @@ navigator.mediaDevices.getUserMedia({ audio: true })
         analyser.getByteFrequencyData(dataArray);
         let volume = dataArray.reduce((a,b)=>a+b)/dataArray.length;
 
-        if(volume > 60){
-            document.getElementById("flame").classList.add("hidden");
-            document.getElementById("message").classList.remove("hidden");
-            alert("I Love You So Much Sonali ❤️");
+        if(volume > 35){
+
+    document.querySelectorAll(".flame").forEach(f=>{
+        f.style.display = "none";
+    });
+
+    document.getElementById("message").classList.remove("hidden");
+
+// Fireworks
+for(let i=0;i<20;i++){
+  let fw = document.createElement("div");
+  fw.className="firework";
+  fw.style.left = Math.random()*100+"vw";
+  fw.style.top = Math.random()*60+"vh";
+  document.body.appendChild(fw);
+  setTimeout(()=>fw.remove(),1000);
+}
+
+// Balloons
+for(let i=0;i<10;i++){
+  let balloon=document.createElement("div");
+  balloon.className="balloon";
+  balloon.style.left=Math.random()*100+"vw";
+  balloon.style.background=`hsl(${Math.random()*360},70%,60%)`;
+  document.body.appendChild(balloon);
+  setTimeout(()=>balloon.remove(),6000);
+}
+          
+          }
         }
         requestAnimationFrame(detectBlow);
     }
