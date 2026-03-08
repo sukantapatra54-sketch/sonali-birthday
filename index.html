@@ -81,7 +81,34 @@ animation:twinkle 2s infinite alternate;
 from{opacity:0.2}
 to{opacity:1}
 }
+#galaxyName{
+position:fixed;
+top:12%;
+left:50%;
+transform:translateX(-50%);
+font-size:90px;
+font-weight:bold;
+letter-spacing:12px;
+color:white;
 
+text-shadow:
+0 0 10px #fff,
+0 0 20px #ff00ff,
+0 0 40px #ff00ff,
+0 0 80px #00ffff;
+
+animation:glowName 3s ease-in-out infinite alternate;
+z-index:10;
+}
+
+@keyframes glowName{
+from{
+text-shadow:0 0 10px #fff,0 0 20px #ff00ff;
+}
+to{
+text-shadow:0 0 20px #fff,0 0 40px #00ffff;
+}
+}
 /* shooting star */
 
 .shoot{
@@ -377,6 +404,8 @@ detect();
 });
 
 </script>
-
+  
+<div id="galaxyName">SONALI</div>
+  
 </body>
 </html>
