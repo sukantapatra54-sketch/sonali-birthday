@@ -268,32 +268,45 @@ setTimeout(()=>heart.remove(),5000);
 },500);
 function fireworks(){
 
-for(let i=0;i<120;i++){
+for(let i=0;i<8;i++){
 
-let fw=document.createElement("div");
+let x = Math.random()*window.innerWidth;
+let y = Math.random()*window.innerHeight*0.6;
 
-fw.style.position="absolute";
-fw.style.width="6px";
-fw.style.height="6px";
-fw.style.background="yellow";
-fw.style.borderRadius="50%";
+for(let j=0;j<40;j++){
 
-fw.style.left=Math.random()*100+"vw";
-fw.style.top=Math.random()*100+"vh";
+let particle=document.createElement("div");
 
-fw.style.boxShadow="0 0 20px orange";
+particle.style.position="absolute";
+particle.style.width="6px";
+particle.style.height="6px";
+particle.style.borderRadius="50%";
 
-document.body.appendChild(fw);
+let colors=["red","yellow","blue","orange","lime","cyan","magenta"];
+particle.style.background=colors[Math.floor(Math.random()*colors.length)];
 
-fw.animate([
-{transform:"scale(1)",opacity:1},
-{transform:"scale(25)",opacity:0}
+particle.style.left=x+"px";
+particle.style.top=y+"px";
+
+document.body.appendChild(particle);
+
+let angle=Math.random()*2*Math.PI;
+let distance=80+Math.random()*120;
+
+let dx=Math.cos(angle)*distance;
+let dy=Math.sin(angle)*distance;
+
+particle.animate([
+{transform:"translate(0,0)",opacity:1},
+{transform:`translate(${dx}px,${dy}px)`,opacity:0}
 ],{
 duration:1200,
 easing:"ease-out"
 });
 
-setTimeout(()=>fw.remove(),1200);
+setTimeout(()=>particle.remove(),1200);
+
+}
 
 }
 
