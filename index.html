@@ -138,14 +138,45 @@ margin-top:40px;
 
 .cake{
 position:relative;
-margin:200px auto;
-width:220px;
-height:160px;
-background:#ff4da6;
-border-radius:15px;
-box-shadow:0 0 30px pink;
+width:160px;
+height:120px;
+margin:80px auto;
+animation:cakeFloat 3s ease-in-out infinite;
 }
 
+.layer{
+position:absolute;
+left:0;
+right:0;
+margin:auto;
+height:35px;
+border-radius:10px;
+box-shadow:0 0 15px pink;
+}
+
+.layer1{
+bottom:0;
+width:160px;
+background:#ff4da6;
+}
+
+.layer2{
+bottom:35px;
+width:120px;
+background:#ff85c1;
+}
+
+.layer3{
+bottom:70px;
+width:80px;
+background:#ffc1e3;
+}
+
+@keyframes cakeFloat{
+0%{transform:translateY(0)}
+50%{transform:translateY(-12px)}
+100%{transform:translateY(0)}
+}
 /* candle */
 
 .candle{
@@ -247,8 +278,11 @@ background-position:0% 0%,100% 100%,50% 50%;
 <h2>Blow the Candle Sweetheart 🎂</h2>
 
 <img src="IMG_20260302_151050.jpg">
-
-<div class="cake" id="cake"></div>
+<div class="cake" id="cake">
+<div class="layer layer1"></div>
+<div class="layer layer2"></div>
+<div class="layer layer3"></div>
+</div>
 <div id="message">
 <span id="typeText"></span>
 </div>
