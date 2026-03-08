@@ -8,11 +8,35 @@
 
 body{
 margin:0;
-background:black;
 overflow:hidden;
 text-align:center;
 color:white;
 font-family:Segoe UI;
+
+background:
+radial-gradient(circle at 20% 30%, #3a0066, black 60%),
+radial-gradient(circle at 80% 70%, #001a66, black 60%),
+radial-gradient(circle at 50% 50%, #330033, black 70%);
+
+background-size:200% 200%;
+
+animation:galaxyMove 25s linear infinite;
+}
+
+@keyframes galaxyMove{
+
+0%{
+background-position:0% 0%,100% 100%,50% 50%;
+}
+
+50%{
+background-position:50% 50%,20% 80%,70% 30%;
+}
+
+100%{
+background-position:0% 0%,100% 100%,50% 50%;
+}
+
 }
 
 /* MARVEL INTRO */
