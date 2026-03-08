@@ -9,9 +9,18 @@
 body{
 margin:0;
 overflow:hidden;
-text-align:center;
 color:white;
 font-family:Segoe UI;
+text-align:center;
+
+background:
+radial-gradient(circle at 20% 30%, #ffffff22, transparent 60%),
+radial-gradient(circle at 80% 70%, #66ccff22, transparent 60%),
+radial-gradient(circle at 50% 50%, #aa00ff33, black 80%);
+
+background-size:200% 200%;
+animation:galaxyMove 20s linear infinite;
+}
 
 background:
 radial-gradient(circle at 20% 30%, #3a0066, black 60%),
@@ -220,7 +229,21 @@ animation:explode 1s linear;
 0%{transform:scale(1)}
 100%{transform:scale(20);opacity:0}
 }
+@keyframes galaxyMove{
 
+0%{
+background-position:0% 0%,100% 100%,50% 50%;
+}
+
+50%{
+background-position:50% 50%,20% 80%,70% 30%;
+}
+
+100%{
+background-position:0% 0%,100% 100%,50% 50%;
+}
+
+}
 </style>
 </head>
 
